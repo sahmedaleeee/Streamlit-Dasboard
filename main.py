@@ -14,11 +14,12 @@ st.set_page_config(
     page_icon=logo,
     layout="wide"
 )
-st.get_option("theme.primaryColor")
-st.get_option("theme.textColor")
-st.get_option("theme.secondaryBackgroundColor")
-st.get_option("theme.backgroundColor")
-st.get_option("theme.font")
+
+backgroundColor="#0E1117"
+secondaryBackgroundColor = "#262730"
+textColor = "#FAFAFA"
+primaryColor= "#FF4B4B" 
+font = "Serif"
 
 # ----- functions -----
 def check_password():
