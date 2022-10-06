@@ -15,11 +15,10 @@ st.set_page_config(
     layout="wide"
 )
 
-backgroundColor="#0E1117"
-secondaryBackgroundColor = "#262730"
-textColor = "#FAFAFA"
-primaryColor= "#FF4B4B" 
-font = "Serif"
+pc = st.get_option('theme.primaryColor')
+bc = st.get_option('theme.backgroundColor')
+sbc = st.get_option('theme.secondaryBackgroundColor')
+tc = st.get_option('theme.textColor')
 
 # ----- functions -----
 def check_password():
