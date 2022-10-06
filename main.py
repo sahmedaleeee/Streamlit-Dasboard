@@ -17,8 +17,8 @@ st.set_page_config(
 st.get_option("theme.primaryColor")
 st.get_option("theme.textColor")
 st.get_option("theme.secondaryBackgroundColor")
+st.get_option("theme.backgroundColor")
 st.get_option("theme.font")
-
 
 # ----- functions -----
 def check_password():
@@ -217,6 +217,7 @@ if check_password():
     /*center metric value*/
     [data-testid="stMetricValue"] > div:nth-child(1) {
         justify-content: center;
+        font-color: "white"
     }
     </style>
     ''', unsafe_allow_html=True)
