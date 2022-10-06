@@ -14,10 +14,12 @@ st.set_page_config(
     page_icon=logo,
     layout="wide"
 )
-primary_clr = st.get_option("theme.primaryColor")
-txt_clr = st.get_option("theme.textColor")
-    # I want 3 colours to graph, so this is a red that matches the theme:
-second_clr = "#d87c7c"
+st.get_option("theme.primaryColor")
+st.get_option("theme.textColor")
+st.get_option("theme.secondaryBackgroundColor")
+st.get_option("theme.font")
+
+
 # ----- functions -----
 def check_password():
     """Returns `True` if the user had the correct password."""
