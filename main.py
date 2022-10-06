@@ -81,8 +81,6 @@ def year_month_number(ym):
     return output
 
 if check_password():
-    st.write("Here goes your normal Streamlit app...")
-  
     # ----- data tranformation ------
     dataframe = load_googlesheet_data()
     states_full_name = get_states()
