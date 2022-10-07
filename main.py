@@ -133,7 +133,7 @@ if check_password():
 
 
     # ----- create Filters Pane------
-    st.sidebar.header("Filters")
+    st.sidebar.header("👁‍🗨 Filters")
 
     date_filter = st.sidebar.selectbox("Date", date_list_new,index=default_dates)
     if "All" in date_filter:
@@ -198,11 +198,11 @@ if check_password():
     c1,c2,c3,c4,c5,c6 = st.columns(6)
 
     c1.metric("Number of Complaints",total_complaints)
-    c2.metric("Avg Complaints",avg_complaints_per_month)
+    c2.metric("Avg Monthly Complaints",avg_complaints_per_month)
     c3.metric("Closed Complaints",complaint_closed)
     c4.metric("In Progress",complaint_in_progress)
     c5.metric("Timely",timely_complaint)
-    c6.metric("Month",month)
+    c6.metric("Highest Complaint Month",month)
     st.markdown("---")
 
 
@@ -244,10 +244,10 @@ if check_password():
     , unsafe_allow_html=True)
 
 
-    # ----- navigation -------
+    # ----- navigation menu-------
     selected = option_menu(
             menu_title= None,
-            options= ['Product','Year Month','Submitted-Via','Issues & Sub-Issues','Data'],
+            options= ['Product | State','Year Month','Submitted-Via','Issues & Sub-Issues','Data'],
             icons= ['credit-card-2-front','calendar-check','box-arrow-up','boxes','device-ssd'],
             orientation= "horizontal",
             styles={
@@ -258,7 +258,7 @@ if check_password():
     )
     st.markdown("---")
 
-    #----Bar chart-----
+    #----Product Bar chart-----
     complaints_by_products = df_filtered.groupby(['product'])['product'].count().reset_index(name='count').sort_values(['count'], ascending=False)
     complaints_by_products['color']='#E1E1E1'
     complaints_by_products['color'][0:1]='#ff4b4b'
@@ -290,6 +290,41 @@ if check_password():
 
     fig_product_complaint.update_traces(
         hovertemplate="<br> Number of Complaints: <b>%{value}</b> </br> <br> Product: <b>%{label}</b> </br> "
+    )
+
+
+    # ---- state bar Chart ----
+    complaints_by_states = df_filtered.groupby(['state'])['state'].count().reset_index(name='count').sort_values(['count'], ascending=False)
+    complaints_by_states['color']='#E1E1E1'
+    complaints_by_states['color'][0:1]='#ff4b4b'
+
+    fig_state_complaint = px.bar(
+        complaints_by_states,
+        y = 'count',
+        x = 'state',
+        orientation = "v",
+        title = "<b>Number of Complaints by State</b>",
+        labels={
+            'product' : 'State',
+            'count' : 'Number of Complaints'
+        },
+        color='color',
+        color_discrete_sequence=complaints_by_products.color.unique(),
+        template="plotly_white",
+        height=700,
+        log_y= True
+    )
+
+    fig_state_complaint.update_layout(
+        plot_bgcolor="#262730",
+        showlegend=False,
+        xaxis= (dict(showgrid=False, showticklabels=False)),
+        yaxis= (dict(showgrid=False, visible = True, showticklabels=False)),
+        title= (dict(x= 0.5, xanchor= "center",font_size= 22, font_color= 'Grey'))
+    )
+
+    fig_state_complaint.update_traces(
+        hovertemplate="<br> Number of Complaints: <b>%{value}</b> </br> <br> State: <b>%{label}</b> </br> "
     )
 
 
@@ -379,11 +414,34 @@ if check_password():
         hovertemplate = "<br>Issue: <b>%{label}</b></br> <br>Sub-Issue: <b>%{parent}</b></br> <br>Complaints: <b>%{value}</b> </br>"
     )
 
-    if selected =="Product":
-        st.plotly_chart(
-            fig_product_complaint,
-            use_container_width=True
-        )
+# ---- Navigation ----
+    if selected =="Product | State":
+        col1,col2,col3 = st.columns([1.5,9,20])
+
+        with col2:
+            selected2 = option_menu(
+                menu_title= None,
+                default_index=0,
+                options= ['Product','State'],
+                icons= ['handbag','globe2'],
+                orientation= "horizontal",
+                styles={
+                    "container": {"padding": "0.5"},
+                    "icon": {"color": "#ebe6dc"}, 
+                    "nav-link": { "text-align": "center", "margin":"5px", "--hover-color": "#efaaa4"}
+                }
+            )
+
+        if selected2 == "Product":
+            st.plotly_chart(
+                fig_product_complaint,
+                use_container_width=True
+            )
+        if selected2 == "State":
+            st.plotly_chart(
+                fig_state_complaint,
+                use_container_width=True
+            )
 
     if selected =="Year Month":
         st.plotly_chart(
