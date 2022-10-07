@@ -133,7 +133,7 @@ if check_password():
 
 
     # ----- create Filters Pane------
-    st.sidebar.header("👁‍🗨 Filters")
+    st.sidebar.header("Filters :mag:")
 
     date_filter = st.sidebar.selectbox("Date", date_list_new,index=default_dates)
     if "All" in date_filter:
