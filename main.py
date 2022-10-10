@@ -1,5 +1,6 @@
 # ----import------
 import gspread as gs
+from google.oauth2 import service_account
 import requests as r
 import pandas as pd
 import plotly.express as px
@@ -54,8 +55,15 @@ def get_states():
     return states.json()
 
 def load_googlesheet_data():
-    gc = gs.service_account(filename='credentials.json')
-    sh = gc.open_by_url('https://docs.google.com/spreadsheets/d/11PSAUcDzUFQYhh6nJC_40decAutgaE2FHWIkXaLMFSQ/edit?usp=sharing')
+    sheet_url = st.secrets["private_gsheets_url"]
+    scopes = ['https://www.googleapis.com/auth/spreadsheets',
+              'https://www.googleapis.com/auth/drive']
+    credentials = service_account.Credentials.from_service_account_info(
+        st.secrets["gcp_service_account"],
+        scopes=scopes,
+        )
+    gc = gs.authorize(credentials)
+    sh = gc.open_by_url(sheet_url)
     ws = sh.worksheet('Data')
     dataframe = pd.DataFrame(ws.get_all_records())
     return dataframe
