@@ -1,6 +1,7 @@
 ![image](https://user-images.githubusercontent.com/109862730/235887202-ae56bf85-e16b-4618-abf7-f3f9d6e49416.png)
 
 
+
 # Consumer Finance Complaints ETL and Dashboard
 
 This repository contains my project focused on automating the extraction, transformation, and loading (ETL) of consumer complaint data from the Consumer Financial Protection Bureau (CFPB) API into Google Sheets, followed by dashboard creation using Python and Streamlit. The project leverages Google Cloud APIs and integrates the ETL process into a Directed Acyclic Graph (DAG) flow to ensure seamless data processing, even in the case of interruptions.
@@ -25,12 +26,6 @@ The goal of this project is to automate the data pipeline, making it robust and 
 - **ETL Automation**: Designed a robust ETL pipeline with DAG flow integration to ensure uninterrupted data processing.
 - **Google Sheets Automation**: Automated data loading into Google Sheets using Google Cloud API, enabling real-time data access.
 - **Dashboard Development**: Created a user-friendly dashboard in Python using Streamlit, providing valuable insights through interactive visualizations.
-
-## Resources Included
-
-- **Python Scripts**: Contains detailed code for the entire ETL process, Google Cloud API integration, and dashboard creation.
-- **DAG Configuration**: Files and scripts demonstrating the setup of the automated DAG flow for seamless ETL operations.
-- **Dashboard Code**: Streamlit dashboard files showcasing the interactive data visualization and analysis.
 
 ## Summary
 
